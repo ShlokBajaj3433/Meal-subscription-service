@@ -1,0 +1,74 @@
+# ──────────────────────────────────────────────────────────────
+# Common configuration (all profiles inherit these)
+# ──────────────────────────────────────────────────────────────
+spring:
+  application:
+    name: meal-subscription-service
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  thymeleaf:
+    cache: true
+    encoding: UTF-8
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:noreply@mealsubscription.com}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# ──────────────────────────────────────────────────────────────
+# Application-specific properties
+# ──────────────────────────────────────────────────────────────
+app:
+  jwt:
+    secret: ${JWT_SECRET:ThisIsAVeryLongSecretKeyForDevelopmentOnlyDoNotUseInProduction12345}
+    expiration-ms: 86400000         # 24 hours
+
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:sk_test_placeholder}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
+    currency: usd
+
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:8080}
+
+# ──────────────────────────────────────────────────────────────
+# Actuator
+# ──────────────────────────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Meal Subscription Service
+    version: 1.0.0
+    description: Production-grade meal subscription backend

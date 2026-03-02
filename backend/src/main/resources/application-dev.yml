@@ -1,0 +1,29 @@
+# ──────────────────────────────────────────────────────────────
+# Development profile — local PostgreSQL via docker-compose
+# ──────────────────────────────────────────────────────────────
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mealdb
+    username: meal
+    password: meal
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    locations: classpath:db/migration,classpath:db/testdata
+
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    com.mealsubscription: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE

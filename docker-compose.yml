@@ -1,0 +1,67 @@
+# docker-compose.yml — Local development environment
+#
+# Services:
+#   app  — Spring Boot backend (built from Dockerfile)
+#   db   — PostgreSQL 16 (persistent volume)
+#
+# Usage:
+#   cp .env.example .env        # fill in your Stripe test keys and JWT secret
+#   docker compose up -d
+#   docker compose logs -f app  # follow logs
+
+version: '3.9'
+
+services:
+
+  # ── Spring Boot Application ─────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meal-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mealdb
+      SPRING_DATASOURCE_USERNAME: meal
+      SPRING_DATASOURCE_PASSWORD: meal
+      # Secrets — load from .env file (never commit .env to git)
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ── PostgreSQL Database ──────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: meal-db
+    environment:
+      POSTGRES_DB: mealdb
+      POSTGRES_USER: meal
+      POSTGRES_PASSWORD: meal
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"        # expose for local DB tool access (DBeaver / pgAdmin)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meal -d mealdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    driver: local

@@ -14,7 +14,7 @@
     <description>Production-grade Spring Boot Meal Subscription Service</description>
 
     <modules>
-        <module>backend</module>
+        <module>meal-service</module>
         <module>selenium-tests</module>
     </modules>
 

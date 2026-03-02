@@ -19,15 +19,15 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Copy backend module
-COPY backend/pom.xml backend/pom.xml
+# Copy meal-service module
+COPY meal-service/pom.xml meal-service/pom.xml
 
 # Download dependencies without source code (cache layer)
-RUN chmod +x mvnw && ./mvnw -B dependency:go-offline -pl backend --no-transfer-progress
+RUN chmod +x mvnw && ./mvnw -B dependency:go-offline -pl meal-service --no-transfer-progress
 
 # Copy source and build
-COPY backend/src backend/src
-RUN ./mvnw -B package -pl backend -DskipTests --no-transfer-progress
+COPY meal-service/src meal-service/src
+RUN ./mvnw -B package -pl meal-service -DskipTests --no-transfer-progress
 
 # ── Stage 2: Runtime ──────────────────────────────────────────────────────────
 FROM eclipse-temurin:21-jre-alpine
@@ -39,7 +39,7 @@ USER appuser
 WORKDIR /app
 
 # Copy the fat JAR from the build stage
-COPY --from=build /workspace/backend/target/*.jar app.jar
+COPY --from=build /workspace/meal-service/target/*.jar app.jar
 
 EXPOSE 8080
 

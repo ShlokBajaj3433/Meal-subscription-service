@@ -21,6 +21,11 @@ spring:
   thymeleaf:
     cache: false
 
+management:
+  health:
+    mail:
+      enabled: false   # disable mail health in dev (no SMTP credentials)
+
 logging:
   level:
     com.mealsubscription: DEBUG

@@ -127,7 +127,7 @@ jobs:
 
       - name: Run Selenium E2E tests
         run: |
-          ./mvnw -B test -pl selenium-tests --no-transfer-progress \
+          ./mvnw -B test -pl meal-service -Pe2e --no-transfer-progress \
             -Dheadless=true \
             -Dapp.base.url=http://localhost:8080
 
@@ -136,14 +136,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: selenium-screenshots
-          path: selenium-tests/selenium-screenshots/
+          path: meal-service/selenium-screenshots/
 
       - name: Upload Selenium test reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: selenium-test-reports
-          path: selenium-tests/target/surefire-reports/
+          path: meal-service/target/surefire-reports/
 
   # ── Job 3: Docker Build & Push to ECR ────────────────────────────────────
   docker-build-push:

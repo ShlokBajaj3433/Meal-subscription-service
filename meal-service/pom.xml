@@ -24,6 +24,11 @@
         <stripe.version>31.4.0</stripe.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <lombok.version>1.18.36</lombok.version>
+        <!-- Selenium / E2E -->
+        <selenium.version>4.41.0</selenium.version>
+        <webdrivermanager.version>6.3.3</webdrivermanager.version>
+        <app.base.url>http://localhost:8080</app.base.url>
+        <headless>true</headless>
     </properties>
 
     <dependencies>
@@ -154,6 +159,20 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- ── Selenium E2E (test scope) ────────────────────────────────── -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -170,6 +189,17 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Surefire: exclude E2E tests from default mvn test phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/e2e/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
             <!-- MapStruct + Lombok annotation processor ordering -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -193,5 +223,31 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- ── E2E profile: mvn test -Pe2e -pl meal-service ─────────────────── -->
+    <profiles>
+        <profile>
+            <id>e2e</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!-- Run ONLY E2E tests -->
+                            <includes>
+                                <include>**/e2e/**/*Test.java</include>
+                            </includes>
+                            <excludes/>
+                            <systemPropertyVariables>
+                                <app.base.url>${app.base.url}</app.base.url>
+                                <headless>${headless}</headless>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

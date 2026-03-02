@@ -4,6 +4,7 @@ import com.mealsubscription.e2e.base.BaseTest;
 import com.mealsubscription.e2e.pages.AdminMealPage;
 import com.mealsubscription.e2e.pages.LoginPage;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +28,10 @@ class AdminMealTest extends BaseTest {
         navigateTo("/login");
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.loginAs("admin@mealsubscription.com", "Admin@1234");
+        // Wait for the POST /web/login 302 redirect to /dashboard to fully complete
+        // before navigating onwards — avoids a race where driver.get(/admin/meals)
+        // fires while the previous redirect is still in-flight.
+        wait.until(ExpectedConditions.urlContains("/dashboard"));
 
         navigateTo("/admin/meals");
         adminMealPage = new AdminMealPage(driver, wait);

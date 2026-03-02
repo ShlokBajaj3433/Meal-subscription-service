@@ -4,6 +4,7 @@ import com.mealsubscription.e2e.base.BaseTest;
 import com.mealsubscription.e2e.pages.LoginPage;
 import com.mealsubscription.e2e.pages.MealSelectionPage;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,6 +54,8 @@ class MealSelectionTest extends BaseTest {
         navigateTo("/login");
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.loginAs("user@mealsubscription.com", "User@1234");
+        // Wait for login redirect to complete before navigating to meals page
+        wait.until(ExpectedConditions.urlContains("/dashboard"));
 
         // Navigate back to catalog
         navigateTo("/meals");

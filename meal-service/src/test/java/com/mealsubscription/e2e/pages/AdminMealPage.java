@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 /**
  * Page Object for the Admin Meal Management page (/admin/meals).
  * Assumes standard HTML form structure matching planned Thymeleaf templates.
@@ -61,7 +60,13 @@ public class AdminMealPage {
     }
 
     public void saveMeal() {
-        wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        btn.click();
+        // POST /web/admin/meals/create redirects back to /admin/meals (PRG pattern).
+        // Wait for the submit button to become stale (proves old DOM unloaded) then
+        // wait for the meals table to be present in the fresh page.
+        wait.until(ExpectedConditions.stalenessOf(btn));
+        wait.until(ExpectedConditions.presenceOfElementLocated(mealTableRows));
     }
 
     public boolean isSuccessMessageVisible() {
@@ -73,10 +78,15 @@ public class AdminMealPage {
     }
 
     public void deleteFirstMeal() {
-        wait.until(ExpectedConditions.elementToBeClickable(deleteFirstBtn)).click();
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteFirstBtn));
+        btn.click();
         // Handle confirm dialog if present
         try {
             driver.switchTo().alert().accept();
         } catch (Exception ignored) {}
+        // Wait for page to reload after the POST redirect.
+        // Use the table element (always present, even when empty) rather than rows.
+        wait.until(ExpectedConditions.stalenessOf(btn));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mealsTable")));
     }
 }

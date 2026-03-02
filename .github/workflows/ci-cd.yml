@@ -114,7 +114,7 @@ jobs:
         uses: browser-actions/setup-chrome@v1
 
       - name: Debug JWT secret length
-        run: echo "JWT SECRET LENGTH: ${#JWT_SECRET}"
+        run: echo "JWT SECRET LENGTH: $(echo -n "$JWT_SECRET" | wc -c | tr -d ' ')"
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
 

@@ -39,6 +39,13 @@ public class FrontendController {
     private final UserService userService;
     private final MealService mealService;
 
+    // ── Root redirect ─────────────────────────────────────────────────────────
+
+    @GetMapping("/")
+    public String rootPage() {
+        return "redirect:/login";
+    }
+
     // ── Auth pages ────────────────────────────────────────────────────────────
 
     @GetMapping("/login")

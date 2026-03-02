@@ -33,8 +33,17 @@ public class JwtTokenProvider {
 
     @PostConstruct
     public void init() {
-        byte[] keyBytes = jwtSecret.getBytes();
-        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+        try {
+            // Decode base64-encoded secret
+            byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+            this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+            log.info("JWT signing key initialized successfully");
+        } catch (Exception e) {
+            // Fallback to UTF-8 bytes if not base64-encoded
+            log.warn("Failed to decode JWT secret as base64, using UTF-8 bytes");
+            byte[] keyBytes = jwtSecret.getBytes();
+            this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+        }
     }
 
     /**

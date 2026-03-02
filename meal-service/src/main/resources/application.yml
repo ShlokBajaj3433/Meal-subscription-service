@@ -72,3 +72,23 @@ info:
     name: Meal Subscription Service
     version: 1.0.0
     description: Production-grade meal subscription backend
+
+# ──────────────────────────────────────────────────────────────
+# Default datasource (fallback when no profile is activated)
+# Using an in‑memory H2 database keeps the app runnable even if the
+# developer forgets to specify "-Dspring-boot.run.profiles=dev".  The
+# dev profile itself overrides this with the real PostgreSQL settings.
+spring:
+  datasource:
+    url: jdbc:h2:mem:defaultdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+h2:
+  console:
+    enabled: true

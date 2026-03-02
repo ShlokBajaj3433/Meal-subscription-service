@@ -1,5 +1,10 @@
 # ──────────────────────────────────────────────────────────────
 # Development profile — local PostgreSQL via docker-compose
+#
+# When the "dev" profile is active this file configures the real Postgres
+# database.  If you start the application without specifying any profile the
+# default settings in application.yml will kick in, which use an in‑memory H2
+# instance (handy for quick local experiments or if Postgres isn’t running).
 # ──────────────────────────────────────────────────────────────
 spring:
   datasource:

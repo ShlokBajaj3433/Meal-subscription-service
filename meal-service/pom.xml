@@ -141,11 +141,16 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ── H2 (tests) ───────────────────────────────────────────────── -->
+        <!-- ── H2 database (in-memory) ─────────────────────────────────────
+             Provides a lightweight jdbc driver for tests *and* local dev when
+             PostgreSQL is not available.  The scope is "runtime" so the driver
+             is present during normal execution; the tests override config with
+             application-test.yml.
+        -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- ── Test ─────────────────────────────────────────────────────── -->

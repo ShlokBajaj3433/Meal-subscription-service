@@ -9,6 +9,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mealdb
+    driver-class-name: org.postgresql.Driver
     username: meal
     password: meal
     hikari:
@@ -21,6 +22,7 @@ spring:
       ddl-auto: validate
 
   flyway:
+    enabled: true
     locations: classpath:db/migration,classpath:db/testdata
 
   thymeleaf:

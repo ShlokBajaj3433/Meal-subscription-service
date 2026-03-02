@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard – Meal Subscription</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <script src="/js/dashboard.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Dashboard</h1>
+    <p>Welcome back! <span id="user-email"></span></p>
+    <nav>
+        <a href="/meals">Browse Meals</a> |
+        <a href="/login" id="logout-link">Logout</a>
+    </nav>
+</div>
+</body>
+</html>

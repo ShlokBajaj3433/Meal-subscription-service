@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Meal Catalog – Meal Subscription</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <script src="/js/meals.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Meal Catalog</h1>
+
+    <!-- Dietary filter — form GET auto-submits on change (via meals.js) -->
+    <form id="filterForm" action="/meals" method="get">
+        <label for="dietaryTypeFilter">Filter by diet:</label>
+        <select id="dietaryTypeFilter" name="dietary">
+            <option value="" th:selected="${dietary == ''}">All</option>
+            <option value="STANDARD"    th:selected="${dietary == 'STANDARD'}">Standard</option>
+            <option value="VEGAN"       th:selected="${dietary == 'VEGAN'}">Vegan</option>
+            <option value="VEGETARIAN"  th:selected="${dietary == 'VEGETARIAN'}">Vegetarian</option>
+            <option value="KETO"        th:selected="${dietary == 'KETO'}">Keto</option>
+            <option value="GLUTEN_FREE" th:selected="${dietary == 'GLUTEN_FREE'}">Gluten Free</option>
+        </select>
+    </form>
+
+    <!-- Meal cards — server-side rendered so Selenium sees them immediately on page load -->
+    <div id="mealCardsContainer">
+        <div class="meal-card" th:each="meal : ${meals}">
+            <span class="meal-name" th:text="${meal.name}">Meal Name</span>
+            <p class="meal-desc"   th:text="${meal.description}">Description</p>
+            <p class="meal-price"  th:text="'$' + ${meal.priceCents / 100}">$0</p>
+            <!-- .btn-add is required by the MealSelectionPage Page Object -->
+            <button class="btn-add" type="button">Add to Week</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

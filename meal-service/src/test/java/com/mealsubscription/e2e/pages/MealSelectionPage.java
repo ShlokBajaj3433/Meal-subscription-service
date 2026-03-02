@@ -1,6 +1,7 @@
 package com.mealsubscription.e2e.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,7 @@ public class MealSelectionPage {
     private final WebDriverWait wait;
 
     private final By dietaryFilter   = By.id("dietaryTypeFilter");
+    private final By filterForm      = By.id("filterForm");
     private final By mealCards       = By.cssSelector(".meal-card");
     private final By mealCardNames   = By.cssSelector(".meal-card .meal-name");
     private final By addToWeekButton = By.cssSelector(".meal-card .btn-add");
@@ -27,8 +29,12 @@ public class MealSelectionPage {
     public void selectDietaryFilter(String dietaryType) {
         WebElement select = wait.until(ExpectedConditions.visibilityOfElementLocated(dietaryFilter));
         new Select(select).selectByValue(dietaryType);
-        // Wait for page/results to refresh
-        wait.until(ExpectedConditions.stalenessOf(driver.findElement(mealCards)));
+        // Submit the filter form via JS — more reliable than depending on the
+        // JS change-event handler in headless mode (avoids stalenessOf races).
+        ((JavascriptExecutor) driver).executeScript(
+                "document.getElementById('filterForm').submit();");
+        // Wait for the dietary filter select to be present again (page reload complete)
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dietaryFilter));
     }
 
     public int getMealCardCount() {

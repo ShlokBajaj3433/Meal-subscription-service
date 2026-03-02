@@ -43,13 +43,23 @@ public class SecurityConfig {
 
             // ── Route authorization ────────────────────────────────────────
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
+                // REST API — public
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/payments/webhook").permitAll()
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/meals/**").permitAll()
-                // Admin-only
+                // REST API — admin-only
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                // ── Thymeleaf UI pages — open to all (auth enforced inside controller) ──
+                .requestMatchers("/", "/login", "/register").permitAll()
+                // Public form actions
+                .requestMatchers(HttpMethod.POST, "/web/login", "/web/register").permitAll()
+                // Static assets
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                // Dashboard and meals — open (no server-side auth needed; API calls carry JWT)
+                .requestMatchers("/dashboard", "/meals").permitAll()
+                // Admin UI pages — open at route level (the controller fetches data)
+                .requestMatchers("/admin/**", "/web/admin/**").permitAll()
                 // All other endpoints require authentication
                 .anyRequest().authenticated())
 

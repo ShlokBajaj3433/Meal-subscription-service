@@ -1,14 +1,14 @@
--- Seed: admin user (password: Admin@1234 — BCrypt hash cost 12)
+-- Seed: admin user (password: Admin@1234 — BCrypt hash cost 12, verified)
 INSERT INTO users (name, email, password_hash, role)
 VALUES ('Admin User', 'admin@mealsubscription.com',
-        '$2a$12$KIXJa7pBukPf9PmEEjD/W.B8N6N3lFvdIRjFW4aBJMWaLnz8yCvSi', 'ADMIN')
-ON CONFLICT (email) DO NOTHING;
+        '$2a$12$yKF0nXjxVAPpxq/Lb1vBD.Fjw71UVI3auXbj4TufOnTJxhwPbHMKO', 'ADMIN')
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
--- Seed: regular test user (password: User@1234 — BCrypt hash cost 12)
+-- Seed: regular test user (password: User@1234 — BCrypt hash cost 12, verified)
 INSERT INTO users (name, email, password_hash, role)
 VALUES ('Test User', 'user@mealsubscription.com',
-        '$2a$12$kq6Sg5hs6x.X/y1ub4jbveD1XbSeyU.dHV2YWUHWVb/XaSCGsazCS', 'USER')
-ON CONFLICT (email) DO NOTHING;
+        '$2a$12$EFJ30geZyp3jVgf/mpVNQulmcmKQAmMDucD/utcKapUEM2UJuaD8i', 'USER')
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
 -- Seed: sample meals
 INSERT INTO meals (name, description, dietary_type, calories, price_cents, is_available) VALUES

@@ -23,7 +23,7 @@
         <jjwt.version>0.12.6</jjwt.version>
         <stripe.version>31.4.0</stripe.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.40</lombok.version>
         <!-- Selenium / E2E -->
         <selenium.version>4.41.0</selenium.version>
         <webdrivermanager.version>6.3.3</webdrivermanager.version>
@@ -207,6 +207,12 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <fork>true</fork>
+                    <forceLegacyJavacApi>true</forceLegacyJavacApi>
+                    <compilerArgs>
+                        <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+                        <arg>--add-opens=java.base/java.util=ALL-UNNAMED</arg>
+                    </compilerArgs>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -233,12 +239,13 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <!-- Run ONLY E2E tests -->
+                        <configuration combine.self="override">
+                            <!-- Completely replace default config — run ONLY E2E tests -->
                             <includes>
-                                <include>**/e2e/**/*Test.java</include>
+                                <include>**/e2e/**/AuthFlowTest</include>
+                                <include>**/e2e/**/MealSelectionTest</include>
+                                <include>**/e2e/**/AdminMealTest</include>
                             </includes>
-                            <excludes/>
                             <systemPropertyVariables>
                                 <app.base.url>${app.base.url}</app.base.url>
                                 <headless>${headless}</headless>

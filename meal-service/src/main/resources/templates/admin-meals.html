@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin – Meal Management</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <script src="/js/admin-meals.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Meal Management</h1>
+    <a href="/dashboard">← Back to Dashboard</a>
+
+    <!-- Success alert (shown after redirect with ?saved=1, optional) -->
+    <div class="alert-success" data-testid="meal-success"
+         th:if="${param.saved}" th:text="'Meal saved successfully.'"></div>
+
+    <!-- Create meal button -->
+    <button id="btn-create-meal" type="button">+ Create Meal</button>
+
+    <!-- Create / Edit form — hidden until btn-create-meal is clicked (toggled by admin-meals.js) -->
+    <section id="createMealSection" class="hidden">
+        <h2>New Meal</h2>
+        <form id="createMealForm" action="/web/admin/meals/create" method="post">
+            <div class="form-group">
+                <label for="mealName">Name</label>
+                <input type="text"   id="mealName"        name="name"        placeholder="Meal name" required/>
+            </div>
+            <div class="form-group">
+                <label for="mealDescription">Description</label>
+                <textarea            id="mealDescription" name="description"  placeholder="Description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="dietaryType">Dietary Type</label>
+                <select id="dietaryType" name="dietaryType">
+                    <option th:each="dt : ${dietaryTypes}"
+                            th:value="${dt}"
+                            th:text="${dt}">TYPE</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="calories">Calories</label>
+                <input type="number" id="calories"    name="calories"    placeholder="e.g. 500" min="1"/>
+            </div>
+            <div class="form-group">
+                <label for="priceCents">Price (cents)</label>
+                <input type="number" id="priceCents"  name="priceCents"  placeholder="e.g. 1299" min="1"/>
+            </div>
+            <button type="submit" id="btn-save-meal">Save Meal</button>
+        </form>
+    </section>
+
+    <!-- Meals table — server-side rendered; each row has a delete button -->
+    <table id="mealsTable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Diet</th>
+            <th>Calories</th>
+            <th>Price ($)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="meal : ${meals}">
+            <td th:text="${meal.name}">Name</td>
+            <td th:text="${meal.dietaryType}">Diet</td>
+            <td th:text="${meal.calories}">0</td>
+            <td th:text="${meal.priceCents / 100}">0</td>
+            <td>
+                <!-- Each delete is its own POST form — no JS/AJAX needed; Selenium's click() waits for redirect -->
+                <form th:action="@{/web/admin/meals/{id}/delete(id=${meal.id})}" method="post"
+                      class="inline-form">
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

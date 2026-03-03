@@ -12,7 +12,7 @@ CREATE TABLE payments (
     stripe_invoice_id           VARCHAR(255),
     stripe_customer_id          VARCHAR(255),
     amount_cents                BIGINT          NOT NULL CHECK (amount_cents >= 0),
-    currency                    CHAR(3)         NOT NULL DEFAULT 'usd',
+    currency                    VARCHAR(3)      NOT NULL DEFAULT 'usd',
     status                      VARCHAR(30)     NOT NULL
                                     CHECK (status IN (
                                         'PENDING', 'SUCCEEDED', 'FAILED', 'REFUNDED')),

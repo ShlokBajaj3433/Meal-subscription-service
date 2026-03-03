@@ -45,10 +45,37 @@ public abstract class BaseTest {
     }
 
     /**
+     * Convenience method to pause execution for the given number of milliseconds.
+     * Tests can call this directly when they need an explicit delay.
+     */
+    protected void delay(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ignored) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
      * Navigate to a path relative to BASE_URL.
      * Example: navigateTo("/login")
      */
     protected void navigateTo(String path) {
         driver.get(BASE_URL + path);
+        // pause after navigation to make it easier to follow - default 3000ms
+        long delay = 1000;
+        String delayProp = System.getProperty("test.delay.ms");
+        if (delayProp != null) {
+            try {
+                delay = Long.parseLong(delayProp);
+            } catch (NumberFormatException ignored) {
+                // ignore invalid values and keep default
+            }
+        }
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException ignored) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

@@ -326,11 +326,34 @@ docker-compose up
 
 **For detailed testing documentation, see [TESTING.md](docs/TESTING.md)**
 
+## 🌐 Deploy Online (FREE)
+
+Want to see your app live on the internet? Deploy it for **FREE** in minutes:
+
+### Quick Deploy Options:
+
+1. **[Render.com](https://render.com)** (Recommended - 5 minutes)
+   - Sign in with GitHub → New Blueprint → Connect repo
+   - Free SSL, auto-deploys, PostgreSQL included
+   - [Full instructions →](docs/DEPLOYMENT_LIVE.md#option-1-rendercom-recommended---easiest)
+
+2. **[Railway.app](https://railway.app)** (Fastest - 3 minutes)
+   - $5 monthly credit, no sleep time
+   - [Full instructions →](docs/DEPLOYMENT_LIVE.md#option-2-railwayapp)
+
+3. **[Fly.io](https://fly.io)** (Production-ready - 10 minutes)
+   - CLI-based deployment, global edge network
+   - [Full instructions →](docs/DEPLOYMENT_LIVE.md#option-3-flyio)
+
+**Complete deployment guide:** [📖 DEPLOYMENT_LIVE.md](docs/DEPLOYMENT_LIVE.md)
+
 ## 📚 Documentation
 
 - **[API Documentation](docs/API.md)** - Complete REST API reference with examples
 - **[Testing Guide](docs/TESTING.md)** - How to run and write tests
-- **[Deployment Guide](docs/DEPLOYMENT.md)** - Production deployment instructions
+- **[🌐 Deploy Online FREE](docs/DEPLOYMENT_LIVE.md)** - Deploy to Render/Railway/Fly.io (no AWS needed)
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Production deployment instructions (AWS)
+- **[Deployment Options](docs/DEPLOYMENT_OPTIONS.md)** - CI/CD and container registry options
 - **[Architecture Overview](docs/ARCHITECTURE.md)** - System architecture and design patterns
 - **[Contributing Guidelines](docs/CONTRIBUTING.md)** - How to contribute to the project
 - **[Stripe Setup](docs/STRIPE_SETUP.md)** - Stripe integration and webhook configuration

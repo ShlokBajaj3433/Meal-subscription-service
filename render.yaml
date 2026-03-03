@@ -1,0 +1,50 @@
+# render.yaml - Deploy to Render.com (Free Tier)
+# 
+# How to deploy:
+# 1. Go to https://render.com and sign in with GitHub
+# 2. Click "New +" → "Blueprint"
+# 3. Connect your GitHub repository
+# 4. Render will auto-detect this file and create all services
+# 5. Add the required environment variables in the Render dashboard
+#
+# Free tier includes:
+# - Web service (sleeps after 15 min inactivity)
+# - PostgreSQL database (90 days free, then paid)
+
+services:
+  # Web Service - Spring Boot Application
+  - type: web
+    name: meal-subscription-service
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: dev
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: meal-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: meal-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: meal-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+    healthCheckPath: /actuator/health
+    plan: free
+    
+databases:
+  # PostgreSQL Database
+  - name: meal-db
+    databaseName: mealdb
+    user: meal
+    plan: free

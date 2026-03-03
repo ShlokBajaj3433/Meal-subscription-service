@@ -75,31 +75,32 @@ public class DataSeeder implements ApplicationRunner {
             return;
         }
 
+        // Prices stored in paise (100 paise = ₹1)
         mealRepository.saveAll(List.of(
-            meal("Grilled Chicken Bowl",
-                 "Lean chicken breast with brown rice and roasted veg",
-                 DietaryType.STANDARD, 520, 1299L),
-            meal("Avocado Buddha Bowl",
-                 "Quinoa, chickpeas, avocado, tahini dressing",
-                 DietaryType.VEGAN, 480, 1399L),
-            meal("Keto Steak Plate",
-                 "Grass-fed sirloin with cauliflower mash and spinach",
-                 DietaryType.KETO, 650, 1699L),
-            meal("Gluten-Free Pasta",
-                 "Brown rice pasta with marinara and sauteed mushrooms",
-                 DietaryType.GLUTEN_FREE, 540, 1199L),
-            meal("Veggie Stir Fry",
-                 "Seasonal vegetables in teriyaki sauce with jasmine rice",
-                 DietaryType.VEGETARIAN, 430, 1099L),
-            meal("Salmon Teriyaki",
-                 "Atlantic salmon fillet with edamame and jasmine rice",
-                 DietaryType.STANDARD, 590, 1799L),
-            meal("Vegan Lentil Soup",
-                 "Red lentil soup with cumin and crusty sourdough bread",
-                 DietaryType.VEGAN, 380, 999L),
-            meal("Turkey and Sweet Potato",
-                 "Ground turkey with roasted sweet potato and kale",
-                 DietaryType.GLUTEN_FREE, 510, 1299L)
+            meal("Chicken Biryani",
+                 "Aromatic basmati rice slow-cooked with tender chicken, saffron and whole spices",
+                 DietaryType.STANDARD, 620, 24900L),
+            meal("Dal Makhani",
+                 "Slow-simmered black lentils in a rich tomato-butter-cream gravy",
+                 DietaryType.VEGETARIAN, 480, 19900L),
+            meal("Keto Chicken Tikka",
+                 "Tandoor-roasted chicken tikka with cucumber raita and mint chutney",
+                 DietaryType.KETO, 510, 34900L),
+            meal("Gluten-Free Idli Sambar",
+                 "Soft steamed rice-lentil idlis served with piping-hot vegetable sambar",
+                 DietaryType.GLUTEN_FREE, 390, 12900L),
+            meal("Masala Dosa",
+                 "Crispy rice-lentil crepe filled with spiced potato masala and coconut chutney",
+                 DietaryType.VEGAN, 430, 14900L),
+            meal("Paneer Butter Masala",
+                 "Cottage-cheese cubes in a velvety tomato-cashew-cream sauce with naan",
+                 DietaryType.VEGETARIAN, 560, 22900L),
+            meal("Rajma Chawal",
+                 "Hearty red-kidney-bean curry served over steamed basmati rice",
+                 DietaryType.VEGAN, 500, 17900L),
+            meal("Tandoori Grilled Fish",
+                 "Fresh surmai fillet marinated in yoghurt and spices, chargrilled in the tandoor",
+                 DietaryType.GLUTEN_FREE, 440, 29900L)
         ));
 
         log.info("[DataSeeder] Seeded {} meals", mealRepository.count());

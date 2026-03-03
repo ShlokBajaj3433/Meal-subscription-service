@@ -177,12 +177,27 @@ mvn test jacoco:report
 
 ### Prerequisites
 
-1. **Application must be running**:
+> **Important:** the application now includes a built-in data seeder that
+> creates two users (admin/user) and several sample meals on startup when the
+> database is empty. This ensures the Selenium tests have the credentials and
+> data they expect. Simply start the app; no manual SQL is required.
+
+1. **Application must be running** (H2 or PostgreSQL):
    ```bash
+   # start locally in dev mode
+   mvn spring-boot:run
+   # or with Docker compose
    docker-compose up
    ```
 
-2. **Chrome browser installed** (WebDriverManager handles ChromeDriver)
+2. **Browser installed**
+   - Chrome or **Brave (Chromium)**: the driver is managed automatically.
+   - You can also use Edge by setting `-Dbrowser=edge`.
+
+3. (optional) **Check app health**
+   ```bash
+   curl http://localhost:8080/actuator/health  # should return {"status":"UP"}
+   ```
 
 ### Location
 
@@ -205,6 +220,25 @@ meal-service/src/test/java/com/mealsubscription/e2e/
 ```
 
 ### Running E2E Tests
+
+Because the `DriverFactory` now auto-detects Chrome, Brave (Chromium) or Edge,
+you can specify the target browser at runtime. Use `-Dbrowser=chromium` to
+force Brave/Chrome if you have a Chromium-based browser but no official Chrome
+binary.
+
+```bash
+# default headless (CI)
+mvn test -Pe2e -pl meal-service
+
+# visible Chromium window
+mvn test -Pe2e -pl meal-service -Dbrowser=chromium -Dheadless=false
+
+# run against a different host
+mvn test -Pe2e -pl meal-service -Dapp.base.url=http://staging.example.com
+
+# run a single E2E class
+mvn test -Pe2e -pl meal-service -Dtest=AuthFlowTest
+```
 
 ```bash
 # Headless mode (default - faster, for CI/CD)
@@ -536,8 +570,18 @@ curl http://localhost:8080/actuator/health
 docker-compose up
 ```
 
-#### 2. ChromeDriver Version Mismatch
+#### 2. ChromeDriver/Browser Mismatch
 
+**Problem**: WebDriverManager downloads an incompatible driver version or the
+local Chromium variant (Brave) isn't picked up.
+
+**Solution**:
+```bash
+# clear cached drivers and let WDM pick the right one again
+rm -rf ~/.cache/selenium
+# explicitly force selection
+mvn test -Pe2e -Dbrowser=chromium -Dheadless=false
+```
 **Problem**: WebDriverManager downloaded incompatible version
 
 **Solution**:
@@ -659,6 +703,20 @@ mvn clean test jacoco:report
 
 # View: target/site/jacoco/index.html
 ```
+
+
+### Data Seeder
+
+A lightweight `ApplicationRunner` (`DataSeeder.java`) seeds two accounts and a
+set of sample meals every time the application starts. This ensures the
+Selenium tests have known credentials and stock data without manual setup. The
+accounts are:
+
+- `admin@mealsubscription.com` / `Admin@1234` (ADMIN role)
+- `user@mealsubscription.com` / `User@1234` (USER role)
+
+If you modify the seeder logic, remember to update the E2E test constants
+(cls `AuthFlowTest`).
 
 ## Performance Testing
 

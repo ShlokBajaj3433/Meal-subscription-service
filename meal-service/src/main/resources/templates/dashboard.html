@@ -3,18 +3,56 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Dashboard – Meal Subscription</title>
+    <title>Dashboard – MealBox</title>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
     <script src="/js/dashboard.js" defer></script>
 </head>
 <body>
+
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a href="/dashboard" class="nav-brand">
+            <div class="brand-icon">🥗</div>
+            MealBox
+        </a>
+        <ul class="nav-links">
+            <li><a href="/meals">Browse Meals</a></li>
+            <li><a href="/login" id="logout-link">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
-    <h1>Dashboard</h1>
-    <p>Welcome back! <span id="user-email"></span></p>
-    <nav>
-        <a href="/meals">Browse Meals</a> |
-        <a href="/login" id="logout-link">Logout</a>
-    </nav>
+
+    <!-- Welcome banner -->
+    <div class="welcome-banner">
+        <h1>Welcome back! 👋</h1>
+        <p>Signed in as <span id="user-email"></span></p>
+    </div>
+
+    <!-- Quick-access cards -->
+    <div class="dashboard-grid">
+        <a href="/meals" class="dash-card">
+            <span class="dash-icon">🍽️</span>
+            <h3>Browse Meals</h3>
+            <p>Explore this week's fresh menu and add meals to your plan</p>
+        </a>
+        <a href="/dashboard" class="dash-card">
+            <span class="dash-icon">📅</span>
+            <h3>My Plan</h3>
+            <p>View and manage your weekly meal schedule</p>
+        </a>
+        <a href="/dashboard" class="dash-card">
+            <span class="dash-icon">💳</span>
+            <h3>Billing</h3>
+            <p>Manage your subscription and payment details</p>
+        </a>
+        <a href="/dashboard" class="dash-card">
+            <span class="dash-icon">⚙️</span>
+            <h3>Settings</h3>
+            <p>Update your profile, dietary preferences and password</p>
+        </a>
+    </div>
 </div>
 </body>
 </html>

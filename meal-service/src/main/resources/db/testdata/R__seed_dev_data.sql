@@ -10,13 +10,13 @@ VALUES ('Test User', 'user@mealsubscription.com',
         '$2a$12$EFJ30geZyp3jVgf/mpVNQulmcmKQAmMDucD/utcKapUEM2UJuaD8i', 'USER')
 ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
--- Seed: sample meals
+-- Seed: sample meals (prices stored in paise; ÷100 = ₹)
 INSERT INTO meals (name, description, dietary_type, calories, price_cents, is_available) VALUES
-('Grilled Chicken Bowl',     'Lean chicken breast with brown rice and roasted veg', 'STANDARD',    520, 1299, true),
-('Avocado Buddha Bowl',      'Quinoa, chickpeas, avocado, tahini dressing',          'VEGAN',       480, 1399, true),
-('Keto Steak Plate',         'Grass-fed sirloin with cauliflower mash and spinach',  'KETO',        650, 1699, true),
-('Gluten-Free Pasta',        'Brown rice pasta with marinara and sautéed mushrooms', 'GLUTEN_FREE', 540, 1199, true),
-('Veggie Stir Fry',          'Seasonal vegetables in teriyaki sauce with jasmine rice', 'VEGETARIAN', 430, 1099, true),
-('Salmon Teriyaki',          'Atlantic salmon fillet with edamame and jasmine rice',  'STANDARD',    590, 1799, true),
-('Vegan Lentil Soup',        'Red lentil soup with cumin and crusty sourdough bread', 'VEGAN',       380, 999,  true),
-('Turkey & Sweet Potato',    'Ground turkey with roasted sweet potato and kale',      'GLUTEN_FREE', 510, 1299, true);
+('Chicken Biryani',          'Aromatic basmati rice slow-cooked with tender chicken, saffron and whole spices', 'STANDARD',    620, 24900, true),
+('Dal Makhani',              'Slow-simmered black lentils in a rich tomato-butter-cream gravy',                  'VEGETARIAN',  480, 19900, true),
+('Keto Chicken Tikka',       'Tandoor-roasted chicken tikka with cucumber raita and mint chutney',              'KETO',        510, 34900, true),
+('Gluten-Free Idli Sambar',  'Soft steamed rice-lentil idlis served with piping-hot vegetable sambar',          'GLUTEN_FREE', 390, 12900, true),
+('Masala Dosa',              'Crispy rice-lentil crepe filled with spiced potato masala and coconut chutney',    'VEGAN',       430, 14900, true),
+('Paneer Butter Masala',     'Cottage-cheese cubes in a velvety tomato-cashew-cream sauce with naan',            'VEGETARIAN',  560, 22900, true),
+('Rajma Chawal',             'Hearty red-kidney-bean curry served over steamed basmati rice',                    'VEGAN',       500, 17900, true),
+('Tandoori Grilled Fish',    'Fresh surmai fillet marinated in yoghurt and spices, chargrilled in the tandoor', 'GLUTEN_FREE', 440, 29900, true);

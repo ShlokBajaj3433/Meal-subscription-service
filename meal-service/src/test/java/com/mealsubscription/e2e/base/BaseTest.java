@@ -24,7 +24,7 @@ public abstract class BaseTest {
 
     /** Base URL for the running application — override with -Dapp.base.url in CI */
     protected static final String BASE_URL =
-        System.getProperty("app.base.url", "http://localhost:8080");
+        System.getProperty("app.base.url", "http://localhost:9090");
 
     /** Explicit wait timeout — long enough for CI, tight enough to catch real failures */
     private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(15);

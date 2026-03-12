@@ -10,7 +10,7 @@ public class AdminMealsTest {
 
         try {
             // Login as admin first
-            driver.get("http://localhost:8080/login");
+            driver.get("http://localhost:9090/login");
             Thread.sleep(2000);
             driver.findElement(By.id("email")).sendKeys("admin@mealsubscription.com");
             driver.findElement(By.id("password")).sendKeys("Admin@1234");
@@ -18,7 +18,7 @@ public class AdminMealsTest {
             Thread.sleep(2000);
 
             // Go to admin meals page
-            driver.get("http://localhost:8080/admin/meals");
+            driver.get("http://localhost:9090/admin/meals");
             Thread.sleep(2000);
 
             // Click Create Meal to show the form

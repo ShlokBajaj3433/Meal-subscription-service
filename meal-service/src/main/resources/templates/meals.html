@@ -29,7 +29,7 @@
         <div class="meal-card" th:each="meal : ${meals}">
             <span class="meal-name" th:text="${meal.name}">Meal Name</span>
             <p class="meal-desc"   th:text="${meal.description}">Description</p>
-            <p class="meal-price"  th:text="'$' + ${meal.priceCents / 100}">$0</p>
+            <p class="meal-price"  th:text="'₹' + ${meal.priceCents / 100}">₹0</p>
             <!-- .btn-add is required by the MealSelectionPage Page Object -->
             <button class="btn-add" type="button">Add to Week</button>
         </div>

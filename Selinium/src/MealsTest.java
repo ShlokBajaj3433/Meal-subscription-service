@@ -9,7 +9,7 @@ public class MealsTest {
         WebDriver driver = new EdgeDriver();
 
         try {
-            driver.get("http://localhost:8080/meals");
+            driver.get("http://localhost:9090/meals");
             Thread.sleep(2000);
 
             // Test filtering by dietary type

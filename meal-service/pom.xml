@@ -29,6 +29,7 @@
         <webdrivermanager.version>6.3.3</webdrivermanager.version>
         <app.base.url>http://localhost:9090</app.base.url>
         <headless>true</headless>
+        <browser>edge</browser>
     </properties>
 
     <dependencies>
@@ -259,6 +260,7 @@
                             <systemPropertyVariables>
                                 <app.base.url>${app.base.url}</app.base.url>
                                 <headless>${headless}</headless>
+                                <browser>${browser}</browser>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>

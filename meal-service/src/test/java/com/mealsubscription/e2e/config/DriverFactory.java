@@ -12,7 +12,8 @@ import org.openqa.selenium.edge.EdgeOptions;
  *
  * Browser selection (in priority order):
  *  1. System property  -Dbrowser=chrome|chromium|brave|edge   (explicit override)
- *  2. Auto-detect: Chrome → Brave (Chromium) → Edge  (whichever is found first)
+ *  2. Default: Edge  (always kept up-to-date on Windows via Windows Update;
+ *     avoids ChromeDriver/Chrome version-mismatch issues)
  *
  * Reads the 'headless' system property to switch between headed (dev) and
  * headless (CI) modes.
@@ -20,8 +21,9 @@ import org.openqa.selenium.edge.EdgeOptions;
  *   -Dheadless=true    → headless mode (CI/CD)
  *
  * Examples:
- *   mvn test -Pe2e -pl meal-service -Dbrowser=chromium -Dheadless=false
- *   mvn test -Pe2e -pl meal-service -Dbrowser=edge     -Dheadless=false
+ *   mvn test -Pe2e -pl meal-service -Dheadless=false
+ *   mvn test -Pe2e -pl meal-service -Dbrowser=chrome  -Dheadless=false
+ *   mvn test -Pe2e -pl meal-service -Dbrowser=edge    -Dheadless=false
  */
 public class DriverFactory {
 
@@ -35,7 +37,9 @@ public class DriverFactory {
     private DriverFactory() {}
 
     public static WebDriver createChromeDriver() {
-        String browser = System.getProperty("browser", "auto").toLowerCase();
+        // Default browser is now Edge — avoids Chrome vs ChromeDriver version mismatches.
+        // Override with -Dbrowser=chrome|chromium|brave|edge as needed.
+        String browser = System.getProperty("browser", "edge").toLowerCase();
         // Default headless=false so tests are visible locally; CI should pass -Dheadless=true
         boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
@@ -43,13 +47,14 @@ public class DriverFactory {
             case "chromium":
             case "brave":
                 return createBraveDriver(headless);
-            case "edge":
-                return createEdgeDriver(headless);
             case "chrome":
                 return createChromeDriverInternal(headless);
-            default: // auto: Chrome → Brave → Edge
+            case "auto":
+                // Legacy auto-detect order retained when explicitly requested
                 if (chromeExists()) return createChromeDriverInternal(headless);
                 if (braveExists())  return createBraveDriver(headless);
+                return createEdgeDriver(headless);
+            default: // "edge" and anything unrecognised → Edge
                 return createEdgeDriver(headless);
         }
     }

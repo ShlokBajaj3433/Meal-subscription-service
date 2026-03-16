@@ -36,6 +36,7 @@ public class AdminMealsTest {
 
             driver.findElement(By.id("calories")).sendKeys("600");
             driver.findElement(By.id("priceCents")).sendKeys("1500");
+            Thread.sleep(2000);
 
             driver.findElement(By.id("btn-save-meal")).click();
             Thread.sleep(3000);

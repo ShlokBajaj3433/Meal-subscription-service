@@ -9,7 +9,7 @@ import java.time.Duration;
 public class DashboardTest {
     public static void main(String[] args) {
         WebDriver driver = new EdgeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
 
         try {
             String emailValue = "admin@mealsubscription.com";

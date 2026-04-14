@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/ShlokBajaj3433/Meal-subscription-service.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 script {

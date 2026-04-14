@@ -32,7 +32,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'java -jar meal-service/target/*.jar'
                     } else {
-                        bat 'for %i in (meal-service\\target\\*.jar) do java -jar "%i"'
+                        bat 'for %%i in (meal-service\\target\\*.jar) do java -jar "%%i"'
                     }
                 }
             }

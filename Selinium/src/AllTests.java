@@ -3,6 +3,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+
 public class AllTests {
     public static void main(String[] args) throws Exception {
         // Suppress known Selenium CDP nearest-match warning noise for Edge 145.

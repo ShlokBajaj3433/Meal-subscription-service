@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark app-navbar" xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+    <div class="container">
+        <a class="navbar-brand app-brand" th:href="@{/dashboard}">
+            <span class="app-brand-mark">MS</span>
+            <span>Meal Subscription</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills-shell">
+                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/meals}">Meals</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/meals}">Admin</a></li>
+            </ul>
+            <div class="app-nav-meta d-flex align-items-center gap-2">
+                <span class="user-chip d-none" id="nav-user-chip">
+                    <span class="user-chip-label">Signed in as</span>
+                    <span id="nav-user-email">Guest</span>
+                </span>
+                <ul class="navbar-nav flex-row align-items-center gap-2">
+                    <li class="nav-item" id="nav-login-item"><a class="nav-link nav-cta" th:href="@{/login}">Login</a></li>
+                    <li class="nav-item d-none" id="nav-logout-item"><a class="nav-link nav-cta nav-cta-secondary" id="logout-link" th:href="@{/login}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

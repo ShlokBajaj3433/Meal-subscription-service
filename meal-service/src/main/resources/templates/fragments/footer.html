@@ -1,0 +1,9 @@
+<footer class="app-footer mt-auto" xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+    <div class="container app-footer-inner">
+        <div>
+            <div class="app-footer-title">Meal Subscription</div>
+            <div class="app-footer-copy">Weekly planning, cleaner delivery flow, simpler meal operations.</div>
+        </div>
+        <div class="app-footer-meta">© <span th:text="${T(java.time.Year).now().value}">2026</span></div>
+    </div>
+</footer>

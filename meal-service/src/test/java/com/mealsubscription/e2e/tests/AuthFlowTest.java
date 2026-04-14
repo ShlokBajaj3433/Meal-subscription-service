@@ -89,8 +89,10 @@ class AuthFlowTest extends BaseTest {
     @DisplayName("Admin user can log in successfully")
     void adminLogin() {
         loginPage.loginAs(ADMIN_EMAIL, ADMIN_PASSWORD);
-        assertThat(driver.getCurrentUrl())
-            .as("Admin should be redirected after login")
-            .doesNotContain("/login");
+        // Use the page-object wait (urlContains "/dashboard") so the assertion
+        // is not evaluated before the 302 redirect from POST /web/login completes.
+        assertThat(loginPage.isLoginSuccessful())
+            .as("Admin should be redirected to /dashboard after login")
+            .isTrue();
     }
 }

@@ -121,7 +121,7 @@ jobs:
             -Dspring.datasource.password=mealpass \
             -jar meal-service/target/*.jar &
           echo "Waiting for application to start..."
-          timeout 120 bash -c 'until curl -sf http://localhost:8080/actuator/health; do sleep 3; done'
+          timeout 120 bash -c 'until curl -sf http://localhost:9090/actuator/health; do sleep 3; done'
           echo "Application started."
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
@@ -133,7 +133,7 @@ jobs:
           chmod +x mvnw
           ./mvnw -B test -pl meal-service -Pe2e --no-transfer-progress \
             -Dheadless=true \
-            -Dapp.base.url=http://localhost:8080
+            -Dapp.base.url=http://localhost:9090
 
       - name: Upload Selenium screenshots on failure
         if: failure()

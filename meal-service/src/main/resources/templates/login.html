@@ -3,47 +3,49 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Sign In – Meal Subscription</title>
+    <title>Login - Meal Subscription</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
-<body>
-<div class="auth-wrapper">
-    <div class="auth-card">
+<body class="bg-light text-dark d-flex flex-column min-vh-100 auth-page auth-page-login">
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-        <!-- Brand -->
-        <div class="auth-logo">
-            <div class="logo-icon">🥗</div>
-            <div>
-                <div class="logo-text">MealBox</div>
-                <div class="logo-sub">Fresh meals, every week</div>
+<main class="container py-4 flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm auth-card border-0">
+                <div class="card-body p-4 p-lg-5">
+                    <span class="eyebrow">Welcome back</span>
+                    <h1 class="h3 mb-2">Sign In</h1>
+                    <p class="auth-subtitle">Access your meal plan, orders, and account settings.</p>
+
+                    <div class="alert-danger" id="login-error"
+                         th:if="${error}" th:text="${error}"></div>
+
+                    <form id="loginForm" action="/web/login" method="post">
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email"
+                                   class="form-control" placeholder="you@example.com" autocomplete="email"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password"
+                                   class="form-control" placeholder="Password" autocomplete="current-password"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+
+                    <p class="mt-4 mb-0 text-secondary">Don't have an account? <a href="/register">Register</a></p>
+                </div>
             </div>
-        </div>
-
-        <h2>Welcome back</h2>
-        <p class="auth-subtitle">Sign in to manage your meal plan</p>
-
-        <!-- Error message: only rendered when server sets model attribute 'error' -->
-        <div class="alert-danger" id="login-error"
-             th:if="${error}" th:text="${error}"></div>
-
-        <form id="loginForm" action="/web/login" method="post">
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="text" id="email" name="email"
-                       placeholder="you@example.com" autocomplete="email"/>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password"
-                       placeholder="Enter your password" autocomplete="current-password"/>
-            </div>
-            <button type="submit" class="btn-full">Sign In</button>
-        </form>
-
-        <div class="auth-footer">
-            Don't have an account? <a href="/register">Register</a> for free
         </div>
     </div>
-</div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/auth-nav.js}" defer></script>
 </body>
 </html>

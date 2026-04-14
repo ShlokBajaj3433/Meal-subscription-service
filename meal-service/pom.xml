@@ -27,8 +27,9 @@
         <!-- Selenium / E2E -->
         <selenium.version>4.41.0</selenium.version>
         <webdrivermanager.version>6.3.3</webdrivermanager.version>
-        <app.base.url>http://localhost:8080</app.base.url>
+        <app.base.url>http://localhost:9090</app.base.url>
         <headless>true</headless>
+        <browser>edge</browser>
     </properties>
 
     <dependencies>
@@ -250,10 +251,16 @@
                                 <include>**/e2e/**/AuthFlowTest</include>
                                 <include>**/e2e/**/MealSelectionTest</include>
                                 <include>**/e2e/**/AdminMealTest</include>
+                                <include>**/e2e/**/AdminMealsTest</include>
+                                <include>**/e2e/**/DashboardTest</include>
+                                <include>**/e2e/**/LoginTest</include>
+                                <include>**/e2e/**/MealsTest</include>
+                                <include>**/e2e/**/RegisterTest</include>
                             </includes>
                             <systemPropertyVariables>
                                 <app.base.url>${app.base.url}</app.base.url>
                                 <headless>${headless}</headless>
+                                <browser>${browser}</browser>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>

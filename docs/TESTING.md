@@ -83,6 +83,17 @@ docker-compose up
 mvn test -Pe2e -pl meal-service
 ```
 
+### Run Selinium TestNG Suite
+
+The standalone Selinium suite runs independently from meal-service Maven tests.
+
+```bash
+# from repository root
+mvn -f Selinium/pom.xml test -Dapp.base.url=http://localhost:8080 -Dbrowser=chrome -Dheadless=true
+```
+
+This command executes classes listed in Selinium/testng.xml and writes reports to Selinium/target/surefire-reports.
+
 ### Test Profiles
 
 | Command | Profile | Database | Tests Run |
@@ -505,6 +516,19 @@ public class YourFeatureTest extends BaseTest {
 - Depend on test execution order
 
 ## CI/CD Integration
+
+### Jenkins pipeline
+
+The Jenkins pipeline includes a Selinium TestNG stage that runs:
+
+```bash
+mvn -f Selinium/pom.xml test
+```
+
+Supported runtime properties in Jenkins environment variables:
+- APP_BASE_URL (default: http://localhost:8080)
+- BROWSER (default: chrome)
+- HEADLESS (default: true)
 
 ### GitHub Actions Example
 

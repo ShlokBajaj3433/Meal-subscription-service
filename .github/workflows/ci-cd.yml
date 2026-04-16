@@ -39,10 +39,11 @@ jobs:
           cache: maven
 
       - name: Make Maven wrapper executable
-        run: chmod +x mvnw
+        run: chmod +x "${{ github.workspace }}/mvnw"
 
       - name: Build & run unit tests
-        run: ./mvnw -B verify -pl meal-service --no-transfer-progress
+        run: |
+          "${{ github.workspace }}/mvnw" -B verify -pl meal-service --no-transfer-progress
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mealdb_test
           SPRING_DATASOURCE_USERNAME: mealuser
@@ -130,8 +131,8 @@ jobs:
 
       - name: Run Selenium E2E tests
         run: |
-          chmod +x mvnw
-          ./mvnw -B test -pl meal-service -Pe2e --no-transfer-progress \
+          chmod +x "${{ github.workspace }}/mvnw"
+          "${{ github.workspace }}/mvnw" -B test -pl meal-service -Pe2e --no-transfer-progress \
             -Dheadless=true \
             -Dapp.base.url=http://localhost:9090
 

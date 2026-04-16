@@ -1,18 +1,20 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class RegisterTest {
-    public static void main(String[] args) {
-        WebDriver driver = new EdgeDriver();
+public class RegisterTest extends BaseTest {
+    @Test
+    public void shouldRegisterNewUser() {
+        driver = createDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
 
         try {
-            driver.get("http://localhost:9090/register");
+            driver.get(getUrl("/register"));
 
             String uniqueEmail = "testuser+" + System.currentTimeMillis() + "@example.com";
 
@@ -26,14 +28,11 @@ public class RegisterTest {
                     ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='register-error']"))
             ));
 
-            if (driver.getCurrentUrl().contains("/login")) {
-                System.out.println("PASS: Registration successful, redirected to login.");
-            } else {
-                System.out.println("FAIL: Registration did not redirect to login.");
-            }
+            Assert.assertTrue(driver.getCurrentUrl().contains("/login"),
+                    "Successful registration should redirect to login");
 
         } finally {
-            driver.quit();
+            closeDriver();
         }
     }
 }

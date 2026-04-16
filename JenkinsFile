@@ -6,9 +6,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'chmod +x mvnw && ./mvnw -f meal-service/pom.xml clean install -DskipTests'
+                        sh 'chmod +x "$WORKSPACE/mvnw" && "$WORKSPACE/mvnw" -f meal-service/pom.xml clean install -DskipTests'
                     } else {
-                        bat '.\\mvnw.cmd -f meal-service\\pom.xml clean install -DskipTests'
+                        bat '"%WORKSPACE%\\mvnw.cmd" -f meal-service\\pom.xml clean install -DskipTests'
                     }
                 }
             }
@@ -18,10 +18,27 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh './mvnw -f meal-service/pom.xml test'
+                        sh '"$WORKSPACE/mvnw" -f meal-service/pom.xml test'
                     } else {
-                        bat '.\\mvnw.cmd -f meal-service\\pom.xml test'
+                        bat '"%WORKSPACE%\\mvnw.cmd" -f meal-service\\pom.xml test'
                     }
+                }
+            }
+        }
+
+        stage('Selinium TestNG') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh '"$WORKSPACE/mvnw" -f Selinium/pom.xml test -Dapp.base.url=${APP_BASE_URL:-http://localhost:8080} -Dbrowser=${BROWSER:-chrome} -Dheadless=${HEADLESS:-true}'
+                    } else {
+                        bat 'if not defined APP_BASE_URL set APP_BASE_URL=http://localhost:8080 && if not defined BROWSER set BROWSER=chrome && if not defined HEADLESS set HEADLESS=true && "%WORKSPACE%\\mvnw.cmd" -f Selinium\\pom.xml test -Dapp.base.url=%APP_BASE_URL% -Dbrowser=%BROWSER% -Dheadless=%HEADLESS%'
+                    }
+                }
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'Selinium/target/surefire-reports/*.xml'
                 }
             }
         }

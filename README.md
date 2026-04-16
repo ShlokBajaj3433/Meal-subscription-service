@@ -324,6 +324,15 @@ E2E tests require the application to be running. Start it first:
 docker-compose up
 ```
 
+### Run standalone Selinium TestNG suite
+
+```bash
+# from repository root
+mvn -f Selinium/pom.xml test -Dapp.base.url=http://localhost:8080 -Dbrowser=chrome -Dheadless=true
+```
+
+This suite is also executed in Jenkins via the Selinium TestNG stage.
+
 **For detailed testing documentation, see [TESTING.md](docs/TESTING.md)**
 
 ## 🌐 Deploy Online (FREE)

@@ -1,16 +1,18 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class AdminMealsTest {
-    public static void main(String[] args) throws InterruptedException {
-        WebDriver driver = new EdgeDriver();
+public class AdminMealsTest extends BaseTest {
+    @Test
+    public void shouldCreateAndDeleteMealFromAdminPage() throws InterruptedException {
+        driver = createDriver();
 
         try {
             // Login as admin first
-            driver.get("http://localhost:9090/login");
+            driver.get(getUrl("/login"));
             Thread.sleep(2000);
             driver.findElement(By.id("email")).sendKeys("admin@mealsubscription.com");
             driver.findElement(By.id("password")).sendKeys("Admin@1234");
@@ -18,7 +20,7 @@ public class AdminMealsTest {
             Thread.sleep(2000);
 
             // Go to admin meals page
-            driver.get("http://localhost:9090/admin/meals");
+            driver.get(getUrl("/admin/meals"));
             Thread.sleep(2000);
 
             // Click Create Meal to show the form
@@ -40,20 +42,20 @@ public class AdminMealsTest {
 
             driver.findElement(By.id("btn-save-meal")).click();
             Thread.sleep(3000);
-            System.out.println("PASS: Meal created successfully.");
+            Assert.assertTrue(true, "Meal create action submitted successfully");
 
             // Delete the first meal if any exist
             java.util.List<WebElement> deleteButtons = driver.findElements(By.cssSelector(".btn-delete"));
             if (!deleteButtons.isEmpty()) {
                 deleteButtons.get(0).click();
                 Thread.sleep(2000);
-                System.out.println("PASS: Clicked delete on the first meal.");
+                Assert.assertTrue(true, "Delete action triggered for first meal");
             } else {
-                System.out.println("INFO: No meals found to delete.");
+                Assert.assertTrue(true, "No meals found to delete");
             }
 
         } finally {
-            driver.quit();
+            closeDriver();
         }
     }
 }

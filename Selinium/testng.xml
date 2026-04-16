@@ -1,8 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="MealSubscriptionSuite">
-    <test name="SampleTests">
+    <test name="SeliniumFullSuite">
         <classes>
             <class name="SampleTest"/>
+            <class name="LoginTest"/>
+            <class name="RegisterTest"/>
+            <class name="MealsTest"/>
+            <class name="DashboardTest"/>
+            <class name="AdminMealsTest"/>
         </classes>
     </test>
 </suite>

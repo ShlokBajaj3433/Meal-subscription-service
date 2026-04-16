@@ -216,6 +216,7 @@
                     <fork>true</fork>
                     <forceLegacyJavacApi>true</forceLegacyJavacApi>
                     <compilerArgs>
+                        <arg>-parameters</arg>
                         <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
                         <arg>--add-opens=java.base/java.util=ALL-UNNAMED</arg>
                     </compilerArgs>

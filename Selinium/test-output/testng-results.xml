@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="6" passed="5" failed="1" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-04-16T23:05:05 IST" name="MealSubscriptionSuite" finished-at="2026-04-16T23:05:32 IST" duration-ms="26564">
+    <groups>
+    </groups>
+    <test started-at="2026-04-16T23:05:05 IST" name="SeliniumFullSuite" finished-at="2026-04-16T23:05:32 IST" duration-ms="26564">
+      <class name="MealsTest">
+        <test-method signature="shouldFilterAndAddMealWhenAvailable()[pri:0, instance:MealsTest@50de0926]" started-at="2026-04-16T23:05:15 IST" name="shouldFilterAndAddMealWhenAvailable" finished-at="2026-04-16T23:05:22 IST" duration-ms="7748" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldFilterAndAddMealWhenAvailable -->
+      </class> <!-- MealsTest -->
+      <class name="DashboardTest">
+        <test-method signature="shouldBrowseMealsAndLogoutFromDashboard()[pri:0, instance:DashboardTest@2473b9ce]" started-at="2026-04-16T23:05:22 IST" name="shouldBrowseMealsAndLogoutFromDashboard" finished-at="2026-04-16T23:05:24 IST" duration-ms="1623" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldBrowseMealsAndLogoutFromDashboard -->
+      </class> <!-- DashboardTest -->
+      <class name="RegisterTest">
+        <test-method signature="shouldRegisterNewUser()[pri:0, instance:RegisterTest@5e955596]" started-at="2026-04-16T23:05:13 IST" name="shouldRegisterNewUser" finished-at="2026-04-16T23:05:15 IST" duration-ms="1502" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldRegisterNewUser -->
+      </class> <!-- RegisterTest -->
+      <class name="SampleTest">
+        <test-method signature="sampleTest()[pri:0, instance:SampleTest@4b9e255]" started-at="2026-04-16T23:05:05 IST" name="sampleTest" finished-at="2026-04-16T23:05:05 IST" duration-ms="4" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sampleTest -->
+      </class> <!-- SampleTest -->
+      <class name="LoginTest">
+        <test-method signature="shouldLoginAsAdmin()[pri:0, instance:LoginTest@1cab0bfb]" started-at="2026-04-16T23:05:05 IST" name="shouldLoginAsAdmin" finished-at="2026-04-16T23:05:13 IST" duration-ms="7520" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldLoginAsAdmin -->
+      </class> <!-- LoginTest -->
+      <class name="AdminMealsTest">
+        <test-method signature="shouldCreateAndDeleteMealFromAdminPage()[pri:0, instance:AdminMealsTest@60438a68]" started-at="2026-04-16T23:05:24 IST" name="shouldCreateAndDeleteMealFromAdminPage" finished-at="2026-04-16T23:05:32 IST" duration-ms="8136" status="FAIL">
+          <exception class="org.openqa.selenium.ElementClickInterceptedException">
+            <message>
+              <![CDATA[element click intercepted: Element <button id="btn-create-meal" type="button" class="btn btn-primary">...</button> is not clickable at point (104, 18). Other element would receive the click: <span>...</span>
+  (Session info: chrome=147.0.7727.56)
+Build info: version: '4.40.0', revision: 'b3333f1'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '25.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [21dbe239304158d1f6e4460d62023a0d, clickElement {id=f.6DF04E58C607045699E83CE56F5B4108.d.C47066EDA085374599B67DE017E949AB.e.35}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.56, chrome: {chromedriverVersion: 147.0.7727.57 (b4f28b5637d0..., userDataDir: C:\Users\shlok\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56034}, goog:processID: 3012, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56034/devtoo..., se:cdpVersion: 147.0.7727.56, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (21dbe239304158d1f6e4460d62023a0d)] -> id: btn-create-meal]
+Session ID: 21dbe239304158d1f6e4460d62023a0d]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <button id="btn-create-meal" type="button" class="btn btn-primary">...</button> is not clickable at point (104, 18). Other element would receive the click: <span>...</span>
+  (Session info: chrome=147.0.7727.56)
+Build info: version: '4.40.0', revision: 'b3333f1'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '25.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [21dbe239304158d1f6e4460d62023a0d, clickElement {id=f.6DF04E58C607045699E83CE56F5B4108.d.C47066EDA085374599B67DE017E949AB.e.35}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.56, chrome: {chromedriverVersion: 147.0.7727.57 (b4f28b5637d0..., userDataDir: C:\Users\shlok\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56034}, goog:processID: 3012, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56034/devtoo..., se:cdpVersion: 147.0.7727.56, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (21dbe239304158d1f6e4460d62023a0d)] -> id: btn-create-meal]
+Session ID: 21dbe239304158d1f6e4460d62023a0d
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+at AdminMealsTest.shouldCreateAndDeleteMealFromAdminPage(AdminMealsTest.java:27)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at AllTests.main(AllTests.java:25)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementClickInterceptedException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldCreateAndDeleteMealFromAdminPage -->
+      </class> <!-- AdminMealsTest -->
+    </test> <!-- SeliniumFullSuite -->
+  </suite> <!-- MealSubscriptionSuite -->
+</testng-results>

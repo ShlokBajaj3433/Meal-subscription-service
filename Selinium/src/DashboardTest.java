@@ -1,14 +1,16 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class DashboardTest {
-    public static void main(String[] args) {
-        WebDriver driver = new EdgeDriver();
+public class DashboardTest extends BaseTest {
+    @Test
+    public void shouldBrowseMealsAndLogoutFromDashboard() {
+        driver = createDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
 
         try {
@@ -16,7 +18,7 @@ public class DashboardTest {
             String passwordValue = "Admin@1234";
 
             // Login first
-            driver.get("http://localhost:9090/login");
+            driver.get(getUrl("/login"));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email"))).sendKeys(emailValue);
             driver.findElement(By.id("password")).sendKeys(passwordValue);
             driver.findElement(By.cssSelector("button[type='submit']")).click();
@@ -27,25 +29,19 @@ public class DashboardTest {
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='/meals']"))).click();
             wait.until(ExpectedConditions.urlContains("/meals"));
 
-            if (driver.getCurrentUrl().contains("/meals")) {
-                System.out.println("PASS: Browse Meals navigated to /meals.");
-            } else {
-                System.out.println("FAIL: Browse Meals did not navigate to /meals.");
-            }
+            Assert.assertTrue(driver.getCurrentUrl().contains("/meals"),
+                    "Browse Meals should navigate to meals page");
 
             // Go back to dashboard and logout
             driver.navigate().back();
             wait.until(ExpectedConditions.elementToBeClickable(By.id("logout-link"))).click();
             wait.until(ExpectedConditions.urlContains("/login"));
 
-            if (driver.getCurrentUrl().contains("/login")) {
-                System.out.println("PASS: Logout redirected to /login.");
-            } else {
-                System.out.println("FAIL: Logout did not redirect to /login.");
-            }
+            Assert.assertTrue(driver.getCurrentUrl().contains("/login"),
+                    "Logout should redirect to login page");
 
         } finally {
-            driver.quit();
+            closeDriver();
         }
     }
 }

@@ -3,53 +3,72 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Meal Catalog – Meal Subscription</title>
+    <meta name="description" content="Browse and filter fresh weekly meal options by dietary profile on MealSubs."/>
+    <title>Meal Catalog – MealSubs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
-<body class="bg-light text-dark d-flex flex-column min-vh-100 app-page app-page-meals">
+<body class="app-page app-page-meals">
 <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
 <main class="container py-4 flex-grow-1">
-    <section class="page-banner mb-4">
+
+    <!-- Page Banner -->
+    <section class="page-banner" aria-label="Meal Catalog">
         <span class="eyebrow">Weekly catalog</span>
         <h1 class="hero-title hero-title-sm mb-2">Meal Catalog</h1>
-        <p class="hero-text mb-0">Filter by diet and build a consistent weekly meal plan with clean, readable options.</p>
+        <p class="hero-text mb-0">Filter by dietary preference and build a consistent weekly plan with clean, healthy options.</p>
     </section>
-    <div class="row">
-        <div class="col">
-            <div class="toolbar-panel d-flex flex-column flex-sm-row align-items-sm-center justify-content-between mb-3 gap-2">
-                <div>
-                    <div class="toolbar-title">Browse meals</div>
-                    <div class="toolbar-subtitle">Choose a dietary profile to narrow the results.</div>
-                </div>
-                <form id="filterForm" action="/meals" method="get" class="d-flex align-items-center gap-2 filter-inline-form">
-                    <label for="dietaryTypeFilter" class="mb-0 filter-label">Filter by diet:</label>
-                    <select id="dietaryTypeFilter" name="dietary" class="form-select">
-                        <option value="" th:selected="${dietary == ''}">All</option>
-                        <option value="STANDARD" th:selected="${dietary == 'STANDARD'}">Standard</option>
-                        <option value="VEGAN" th:selected="${dietary == 'VEGAN'}">Vegan</option>
-                        <option value="VEGETARIAN" th:selected="${dietary == 'VEGETARIAN'}">Vegetarian</option>
-                        <option value="KETO" th:selected="${dietary == 'KETO'}">Keto</option>
-                        <option value="GLUTEN_FREE" th:selected="${dietary == 'GLUTEN_FREE'}">Gluten Free</option>
-                    </select>
-                </form>
-            </div>
 
-            <div id="mealCardsContainer" class="row g-3">
-                <div class="meal-card col-sm-6 col-lg-4" th:each="meal : ${meals}">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body d-flex flex-column">
-                            <span class="meal-name" th:text="${meal.name}">Meal Name</span>
-                            <p class="meal-desc" th:text="${meal.description}">Description</p>
-                            <p class="meal-price mt-auto" th:text="'₹' + ${meal.priceCents / 100}">₹0</p>
-                            <button class="btn-add btn btn-success mt-2" type="button">Add to Week</button>
-                        </div>
+    <!-- Toolbar: filter -->
+    <div class="toolbar-panel">
+        <div>
+            <div class="toolbar-title">Browse meals</div>
+            <div class="toolbar-subtitle">Choose a dietary profile to narrow the results.</div>
+        </div>
+        <form id="filterForm" action="/meals" method="get" class="filter-inline-form">
+            <label for="dietaryTypeFilter" class="filter-label">Filter by diet:</label>
+            <select id="dietaryTypeFilter" name="dietary" class="form-select">
+                <option value=""              th:selected="${dietary == ''}">All meals</option>
+                <option value="STANDARD"     th:selected="${dietary == 'STANDARD'}">Standard</option>
+                <option value="VEGAN"        th:selected="${dietary == 'VEGAN'}">Vegan</option>
+                <option value="VEGETARIAN"   th:selected="${dietary == 'VEGETARIAN'}">Vegetarian</option>
+                <option value="KETO"         th:selected="${dietary == 'KETO'}">Keto</option>
+                <option value="GLUTEN_FREE"  th:selected="${dietary == 'GLUTEN_FREE'}">Gluten Free</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Meal Cards Grid -->
+    <div id="mealCardsContainer" class="row g-3">
+        <div class="meal-card col-sm-6 col-lg-4" th:each="meal : ${meals}">
+            <div class="card h-100 border-0">
+                <div class="card-body d-flex flex-column">
+                    <span class="meal-badge" th:text="${meal.dietaryType}">STANDARD</span>
+                    <span class="meal-name" th:text="${meal.name}">Meal Name</span>
+                    <p class="meal-desc" th:text="${meal.description}">Description goes here.</p>
+                    <div class="meal-meta mt-auto">
+                        <span class="meal-price" th:text="'₹' + ${meal.priceCents / 100}">₹0</span>
+                        <span class="meal-calories" th:if="${meal.calories != null}"
+                              th:text="${meal.calories} + ' kcal'"></span>
                     </div>
+                    <button class="btn-add btn mt-2" type="button">Add to Week Plan</button>
                 </div>
             </div>
         </div>
+
+        <!-- Empty state -->
+        <div th:if="${meals == null or #lists.isEmpty(meals)}" class="col-12">
+            <div class="text-center py-5" style="color: var(--text-muted);">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🍽️</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-base);">No meals found</h3>
+                <p style="font-size: 0.9rem;">Try a different dietary filter or check back when the catalog is updated.</p>
+            </div>
+        </div>
     </div>
+
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

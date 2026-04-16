@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Dashboard – Meal Subscription</title>
+    <meta name="description" content="MealSubs dashboard — review meal activity and manage your meal subscription plan."/>
+    <title>Dashboard – MealSubs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
-<body class="bg-light text-dark d-flex flex-column min-vh-100 app-page app-page-dashboard">
+<body class="app-page app-page-dashboard">
 <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
 <main class="container py-4 flex-grow-1">
-    <section class="hero-panel mb-4">
+
+    <!-- Hero Panel -->
+    <section class="hero-panel" aria-label="Overview">
         <div class="hero-copy">
             <span class="eyebrow">Operations overview</span>
             <h1 class="hero-title">Dashboard</h1>
-            <p class="hero-text">Welcome back, <span id="user-email"></span>. Review meal activity and jump straight into customer and admin actions.</p>
-            <div class="d-flex gap-2 flex-wrap">
-                <a href="/meals" class="btn btn-outline-primary">Browse Meals</a>
-                <a href="/admin/meals" class="btn btn-primary">Manage Meals</a>
+            <p class="hero-text">
+                Welcome back, <strong id="user-email" style="color: var(--brand-primary);"></strong>.
+                Review your meal catalog and jump into admin or customer actions.
+            </p>
+            <div class="hero-actions">
+                <a href="/meals"       class="btn btn-outline-primary">Browse Meals</a>
+                <a href="/admin/meals" class="btn btn-primary">Manage Catalog</a>
             </div>
         </div>
         <div class="hero-stat-grid">
@@ -30,8 +38,60 @@
                 <span class="hero-stat-label">Admin</span>
                 <strong>Fast meal updates</strong>
             </div>
+            <div class="hero-stat-card">
+                <span class="hero-stat-label">Delivery</span>
+                <strong>On-time every week</strong>
+            </div>
         </div>
     </section>
+
+    <!-- Quick action cards -->
+    <div class="row g-3 mt-1">
+        <div class="col-md-4">
+            <a href="/meals" class="text-decoration-none">
+                <div class="card h-100 border-0"
+                     style="border-radius: var(--radius-lg); background: var(--surface-glass-strong);
+                            border: 1px solid var(--border-card) !important; box-shadow: var(--shadow-sm);
+                            transition: transform 0.2s ease, box-shadow 0.2s ease; backdrop-filter: blur(8px);"
+                     onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-lg)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+                    <div class="card-body p-4">
+                        <div style="font-size: 2rem; margin-bottom: 0.75rem;">🍽️</div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-base);">Meal Catalog</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Browse and filter fresh weekly meals by dietary preference.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="/admin/meals" class="text-decoration-none">
+                <div class="card h-100 border-0"
+                     style="border-radius: var(--radius-lg); background: var(--surface-glass-strong);
+                            border: 1px solid var(--border-card) !important; box-shadow: var(--shadow-sm);
+                            transition: transform 0.2s ease, box-shadow 0.2s ease; backdrop-filter: blur(8px);"
+                     onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-lg)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+                    <div class="card-body p-4">
+                        <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚙️</div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-base);">Admin Panel</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Create, edit, and remove meals from the catalog.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0"
+                 style="border-radius: var(--radius-lg); background: var(--surface-glass-strong);
+                        border: 1px solid var(--border-card) !important; box-shadow: var(--shadow-sm); backdrop-filter: blur(8px);">
+                <div class="card-body p-4">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">📊</div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-base);">Your Plan</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Track your weekly subscriptions and upcoming deliveries.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

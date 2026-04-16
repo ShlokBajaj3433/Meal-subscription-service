@@ -54,8 +54,8 @@ public class FrontendController {
     }
 
     @PostMapping("/web/login")
-    public String webLogin(@RequestParam String email,
-                           @RequestParam String password,
+    public String webLogin(@RequestParam("email") String email,
+                           @RequestParam("password") String password,
                            HttpServletResponse response,
                            Model model) {
         try {
@@ -84,9 +84,9 @@ public class FrontendController {
     }
 
     @PostMapping("/web/register")
-    public String webRegister(@RequestParam String name,
-                               @RequestParam String email,
-                               @RequestParam String password,
+    public String webRegister(@RequestParam("name") String name,
+                               @RequestParam("email") String email,
+                               @RequestParam("password") String password,
                                Model model) {
         try {
             userService.register(new RegisterRequest(name, email, password));
@@ -105,7 +105,7 @@ public class FrontendController {
     }
 
     @GetMapping("/meals")
-    public String mealsPage(@RequestParam(required = false) String dietary,
+    public String mealsPage(@RequestParam(name = "dietary", required = false) String dietary,
                              Model model) {
         DietaryType dietaryType = parseDietary(dietary);
         PageRequest pageable = PageRequest.of(0, 50, Sort.by("name"));
@@ -127,11 +127,11 @@ public class FrontendController {
     }
 
     @PostMapping("/web/admin/meals/create")
-    public String adminCreateMeal(@RequestParam String name,
-                                   @RequestParam(required = false) String description,
-                                   @RequestParam String dietaryType,
-                                   @RequestParam Integer calories,
-                                   @RequestParam Long priceCents) {
+    public String adminCreateMeal(@RequestParam("name") String name,
+                                   @RequestParam(name = "description", required = false) String description,
+                                   @RequestParam("dietaryType") String dietaryType,
+                                   @RequestParam("calories") Integer calories,
+                                   @RequestParam("priceCents") Long priceCents) {
         DietaryType type = DietaryType.valueOf(dietaryType);
         MealRequest request = new MealRequest(name, description, type, calories, priceCents, null, true);
         mealService.create(request);

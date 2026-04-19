@@ -23,7 +23,7 @@ Set-Location "C:\codes\Selenium\Meal subscription service"
 
 ## Suite definition
 
-The suite file is in Selinium/testng.xml and includes:
+The suite file is in `Selinium/src/test/resources/testng.xml` and includes:
 - SampleTest
 - LoginTest
 - RegisterTest

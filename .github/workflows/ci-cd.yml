@@ -48,6 +48,8 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mealdb_test
           SPRING_DATASOURCE_USERNAME: mealuser
           SPRING_DATASOURCE_PASSWORD: mealpass
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+          SPRING_JPA_HIBERNATE_DDL_AUTO: update
           JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_TEST }}
           STRIPE_WEBHOOK_SECRET: whsec_test_placeholder

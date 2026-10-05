@@ -1,0 +1,4 @@
+mvnw text eol=lf
+.mvn/wrapper/maven-wrapper.properties text eol=lf
+.mvn/wrapper/maven-wrapper.jar binary
+*.sh text eol=lf

@@ -1,6 +1,7 @@
 package com.mealsubscription.e2e.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -61,12 +62,9 @@ public class AdminMealPage {
 
     public void saveMeal() {
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        double previousTimeOrigin = documentTimeOrigin();
         btn.click();
-        // POST /web/admin/meals/create redirects back to /admin/meals (PRG pattern).
-        // Wait for the submit button to become stale (proves old DOM unloaded) then
-        // wait for the meals table to be present in the fresh page.
-        wait.until(ExpectedConditions.stalenessOf(btn));
-        wait.until(ExpectedConditions.presenceOfElementLocated(mealTableRows));
+        waitForMealListReload(previousTimeOrigin);
     }
 
     public boolean isSuccessMessageVisible() {
@@ -79,14 +77,27 @@ public class AdminMealPage {
 
     public void deleteFirstMeal() {
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(deleteFirstBtn));
+        double previousTimeOrigin = documentTimeOrigin();
         btn.click();
         // Handle confirm dialog if present
         try {
             driver.switchTo().alert().accept();
         } catch (Exception ignored) {}
-        // Wait for page to reload after the POST redirect.
-        // Use the table element (always present, even when empty) rather than rows.
-        wait.until(ExpectedConditions.stalenessOf(btn));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mealsTable")));
+        waitForMealListReload(previousTimeOrigin);
+    }
+
+    private double documentTimeOrigin() {
+        return ((Number) ((JavascriptExecutor) driver)
+                .executeScript("return performance.timeOrigin;")).doubleValue();
+    }
+
+    private void waitForMealListReload(double previousTimeOrigin) {
+        // Check the current document, never the old button: Chrome can report
+        // a detached-document error when stalenessOf queries that element.
+        wait.until(currentDriver -> Boolean.TRUE.equals(((JavascriptExecutor) currentDriver)
+                .executeScript("return performance.timeOrigin !== arguments[0]"
+                        + " && document.readyState === 'complete'"
+                        + " && document.getElementById('mealsTable') !== null;",
+                        previousTimeOrigin)));
     }
 }

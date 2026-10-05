@@ -20,6 +20,7 @@ spring:
 
   jpa:
     open-in-view: false
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -28,6 +29,10 @@ spring:
         format_sql: true
         jdbc:
           time_zone: UTC
+
+  sql:
+    init:
+      mode: always
 
   flyway:
     enabled: false

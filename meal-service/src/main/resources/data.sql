@@ -1,0 +1,2 @@
+INSERT INTO users (name, email, password_hash, role, is_active, created_at, updated_at) VALUES ('Admin User', 'admin@mealsubscription.com', '$2a$12$yKF0nXjxVAPpxq/Lb1vBD.Fjw71UVI3auXbj4TufOnTJxhwPbHMKO', 'ADMIN', TRUE, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO users (name, email, password_hash, role, is_active, created_at, updated_at) VALUES ('Test User', 'user@mealsubscription.com', '$2a$12$EFJ30geZyp3jVgf/mpVNQulmcmKQAmMDucD/utcKapUEM2UJuaD8i', 'USER', TRUE, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());

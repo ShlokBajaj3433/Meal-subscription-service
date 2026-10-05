@@ -17,9 +17,15 @@ spring:
       minimum-idle: 2
 
   jpa:
+    defer-datasource-initialization: false
     show-sql: true
     hibernate:
       ddl-auto: validate
+
+  # Flyway owns PostgreSQL schema and seed data; data.sql is for H2 only.
+  sql:
+    init:
+      mode: never
 
   flyway:
     enabled: true
